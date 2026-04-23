@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
 import CTASection from '../components/CTASection';
+// import CTASection from '../components/ServicesPage1';
+import ServicesPage1 from '../components/ServicesPage1';
 
 export default function ServicesPage() {
   const [activeService, setActiveService] = useState('consulting');
@@ -75,58 +77,7 @@ export default function ServicesPage() {
         description="Explore personalized planning, investment strategy, risk management, and legacy-focused advisory services."
       />
 
-      <nav className="services-nav">
-        <div className="services-container services-nav-flex">
-          {services.map((service) => (
-            <button
-              key={service.id}
-              type="button"
-              className={`services-nav-item ${activeService === service.id ? 'active' : ''}`}
-              onClick={(event) => {
-                event.preventDefault();
-                handleNavClick(service.id);
-              }}
-            >
-              {service.navLabel}
-            </button>
-          ))}
-        </div>
-      </nav>
-
-      <section className="services-content services-container" id={currentService.id}>
-        <div className="services-split-grid">
-          <div className={`services-image-box services-image-box-${currentService.id}`}>
-            <img
-              src={currentService.image}
-              alt={currentService.navLabel}
-              className="services-content-image"
-            />
-            <div className="services-image-meta-card">
-              <span className="services-image-meta-label">Delivery Snapshot</span>
-              <p>{currentService.snapshot}</p>
-            </div>
-          </div>
-          <div className="services-text-box">
-            <span className="services-eyebrow">{currentService.eyebrow}</span>
-            <h2 className="services-section-heading">{currentService.title}</h2>
-            <p className="services-body-text">
-              {currentService.description}
-            </p>
-            <ul className="services-check-list">
-              {currentService.bullets.map((item) => (
-                <li key={item}>
-                  <span className="services-check-icon" aria-hidden="true">✓</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <Link to="/contact" className="services-learn-more-btn arrow-hover-cta arrow-hover-light">
-              <span className="arrow-hover-label">Learn More</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
+<ServicesPage1 />
       <CTASection />
 
     </main>

@@ -36,7 +36,7 @@ export default function PageHeader({ title, description }) {
         </p>
         <div className="inner-page-divider" aria-hidden="true" />
         <h1 className="inner-page-title heading-primary">{title}</h1>
-        <p className="inner-page-subtitle text-body">{description}</p>
+        {/* <p className="inner-page-subtitle text-body">{description}</p> */}
       </div>
     </section>
   );

@@ -1,37 +1,6 @@
-/* ── Mission & Vision Section ─────────────── */
-.aboutx-missionvision {
-  margin-top: var(--space-2xl);
-  margin-bottom: var(--space-2xl);
-}
-.missionvision-row {
-  display: flex;
-  gap: var(--space-xl);
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.missionvision-box {
-  background: #f5f8fa;
-  border: 2px solid var(--accent-green-dim, #2A4A8033);
-  border-radius: 14px;
-  box-shadow: 0 2px 8px 0 rgba(42,74,128,0.04);
-  padding: 28px 32px 22px 32px;
-  max-width: 420px;
-  min-width: 300px;
-  flex: 1 1 320px;
-  margin-bottom: var(--space-lg);
-}
-.missionvision-heading {
-  color: #2A4A80;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.5em;
-}
-.missionvision-box p {
-  color: var(--text-secondary);
-  font-size: 1.05rem;
-  line-height: 1.6;
-}
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500&display=swap');
+
+/* ── Mission & Vision Section ─────────────── */
 @config "../tailwind.config.js";
 @import "tailwindcss";
 
@@ -68,8 +37,8 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
   box-sizing: border-box;
 }
 

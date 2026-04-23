@@ -434,7 +434,7 @@ body {
 
 .page-content section {
 	padding-top: clamp(56px, 7vw, 96px);
-	padding-bottom: clamp(56px, 7vw, 96px);
+	padding-bottom: clamp(50px, 7vw, 9px);
 }
 
 .contactv2-split-wrap,
