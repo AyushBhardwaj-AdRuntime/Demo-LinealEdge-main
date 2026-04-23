@@ -15,7 +15,7 @@ import DisclosurePage from './pages/DisclosurePage';
 import ClientLoginPage from './pages/ClientLoginPage';
 import AdvisorLoginPage from './pages/AdvisorLoginPage';
 import { useLocation } from 'react-router-dom';
-
+// ffmpeg -i route-loader-demo.mp4 -vf "fps=30,scale=320:-1:flags=lanczos" -c:v gif -f gif route-loader-demo.gif
 function getRouteLoaderTheme(pathname) {
   if (pathname.startsWith('/services')) return 'services';
   if (pathname.startsWith('/about')) return 'about';
