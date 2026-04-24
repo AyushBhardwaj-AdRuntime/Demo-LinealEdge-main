@@ -11,6 +11,20 @@ export default function Navbar() {
   const dropdownRef = useRef(null);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const primaryLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/about', label: 'About' },
+    { to: '/services', label: 'Services' },
+    { to: '/team', label: 'Team' },
+    { to: '/careers', label: 'Careers' },
+    { to: '/contact', label: 'Contact' },
+    { to: '/faq', label: 'FAQ' },
+    { to: '/disclosure', label: 'Disclosure' },
+  ];
+  const loginLinks = [
+    { to: '/login/client', label: 'Client Portal', desc: 'Access your portfolio' },
+    { to: '/login/advisor', label: 'Advisor Portal', desc: 'Manage your clients' },
+  ];
 
   useEffect(() => {
     setMobileOpen(false);
@@ -81,11 +95,18 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const navLinks = [
-    { to: '/about', label: 'About' },
-    { to: '/services', label: 'Services' },
-    { to: '/careers', label: 'Careers' },
-  ];
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
+  const desktopLinks = primaryLinks.filter(({ to }) => ['/about', '/services', '/careers'].includes(to));
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+    setLoginOpen(false);
+  };
 
   return (
     <nav 
@@ -98,7 +119,7 @@ export default function Navbar() {
 
       {/* Desktop Nav */}
       <div className={`nav-links ${mobileOpen ? 'mobile-open' : ''}`}>
-        {navLinks.map((link) => (
+        {desktopLinks.map((link) => (
           <Link
             key={link.to}
             to={link.to}
@@ -111,7 +132,7 @@ export default function Navbar() {
         <div className="relative flex items-center"
           onClick={() => {
             if (mobileOpen) {
-              setMobileOpen(false);
+              closeMobileMenu();
             }
           }}
         >
@@ -142,7 +163,7 @@ export default function Navbar() {
           {loginOpen && (
             <div className="login-menu">
               <div className="login-menu-inner">
-                <Link to="/login/client" className="login-menu-item">
+                <Link to="/login/client" className="login-menu-item" onClick={closeMobileMenu}>
                   <div className="login-icon client-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -154,7 +175,7 @@ export default function Navbar() {
                     <span className="login-menu-desc">Access your portfolio</span>
                   </div>
                 </Link>
-                <Link to="/login/advisor" className="login-menu-item">
+                <Link to="/login/advisor" className="login-menu-item" onClick={closeMobileMenu}>
                   <div className="login-icon advisor-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -172,11 +193,45 @@ export default function Navbar() {
         </div>
       </div>
 
+      <div className={`mobile-nav-panel ${mobileOpen ? 'mobile-open' : ''}`}>
+        <div className="mobile-nav-shell">
+          <div className="mobile-nav-group">
+            {primaryLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`mobile-nav-link ${location.pathname === link.to ? 'active' : ''}`}
+                onClick={closeMobileMenu}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="mobile-nav-divider" />
+
+          <div className="mobile-nav-group">
+            {loginLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`mobile-nav-link mobile-nav-link-login ${location.pathname === link.to ? 'active' : ''}`}
+                onClick={closeMobileMenu}
+              >
+                <span>{link.label}</span>
+                <small>{link.desc}</small>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Mobile hamburger */}
       <button
         className={`hamburger ${mobileOpen ? 'open' : ''}`}
         onClick={() => setMobileOpen(!mobileOpen)}
         aria-label="Toggle menu"
+        aria-expanded={mobileOpen}
       >
         <span />
         <span />

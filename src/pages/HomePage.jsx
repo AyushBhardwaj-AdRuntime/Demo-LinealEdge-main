@@ -94,7 +94,9 @@ function HeroSection() {
       // Layout states
       gsap.set('.logo-container', { opacity: 1, scale: 1.15 });
       gsap.set('.hero-wordmark-wrap', { opacity: 0, y: 14 });
-      gsap.set('.hero-bottom-content', { opacity: 0, y: 40 });
+      gsap.set('.hero-bottom-content', { opacity: 1 });
+      gsap.set('.hero-copy-group', { opacity: 0, y: 32 });
+      gsap.set('.hero-cta-shell', { opacity: 0, y: 18 });
       gsap.set('.hero-bg-image', { opacity: 0, scale: 1.1 });
 
       // 1. Cinematic Convergence Animation — converges to x:0,y:0 regardless of start position
@@ -132,10 +134,15 @@ function HeroSection() {
         }, 1.8);
       }
 
-      // Phase 2: Logo shifts to the left, background image reveals, bottom content slides in
-      tl.to('.logo-container', { scale: 1.12, x: '-31vw', y: 0, opacity: 1, duration: 1.4, ease: 'power3.inOut' }, 2.8)
+      // Phase 2: Resolve into a centered stack so the copy sits cleanly below the logo.
+      const finalLogoState = isMobile
+        ? { scale: 0.62, x: 0, y: '-30vh', opacity: 1 }
+        : { scale: 0.9, x: 0, y: '-18vh', opacity: 1 };
+
+      tl.to('.logo-container', { ...finalLogoState, duration: 1.4, ease: 'power3.inOut' }, 2.8)
         .to('.hero-bg-image', { opacity: 1, scale: 1, duration: 1.8, ease: 'power2.out' }, 2.6)
-        .to('.hero-bottom-content', { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, 3.2);
+        .to('.hero-copy-group', { opacity: 1, y: 0, duration: 1.05, ease: 'power3.out' }, 3.28)
+        .to('.hero-cta-shell', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 3.75);
 
       // 3. Subtle float after sequence completes
       gsap.to('.logo-mark', { y: -10, duration: 3, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 4.5 });
@@ -145,7 +152,8 @@ function HeroSection() {
       const navNode = document.querySelector('.navbar');
       if (navNode) gsap.set(navNode, { clearProps: 'all' });
       gsap.killTweensOf('.logo-container');
-      gsap.killTweensOf('.hero-bottom-content');
+      gsap.killTweensOf('.hero-copy-group');
+      gsap.killTweensOf('.hero-cta-shell');
       gsap.killTweensOf('.hero-bg-image');
       ctx.revert();
     };
@@ -174,43 +182,45 @@ function HeroSection() {
 
       {/* Bottom content — Lineal Edge style: text left, KPI right */}
       <div className="hero-bottom-content">
-        <div className="hero-logo-spacer" aria-hidden="true" />
         <div className="hero-bottom-left">
-          <h1 className="hero-main-title">
-            <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}>Built on Generations of Trust,</span><br/>
-            <span style={{ fontWeight: 600 }}>We Help You <span style={{ color: '#39B54A' }}>Grow</span></span><br/>
-            <span style={{ fontWeight: 600 }}>and <span style={{ color: '#39B54A' }}>Protect Your Wealth</span></span>
-          </h1>
-          <a href="/contact" className="hero-cta-btn hero-cta-primary inline-arrow-btn arrow-hover-cta" style={{ 
-            marginTop: '24px', 
-            padding: '0 32px',
-            borderRadius: '8px', 
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            whiteSpace: 'nowrap',
-            height: '48px',
-            fontSize: '16px',
-            fontWeight: 600,
-            backgroundColor: '#39B54A',
-            color: '#FFFFFF',
-            textDecoration: 'none',
-            border: 'none',
-            boxShadow: '0 8px 24px rgba(57, 181, 74, 0.3)',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            cursor: 'pointer',
-            letterSpacing: '0.3px'
-          }} onMouseEnter={(e) => {
-            e.target.style.backgroundColor = '#2fa03d';
-            e.target.style.boxShadow = '0 12px 32px rgba(57, 181, 74, 0.4)';
-            e.target.style.transform = 'translateY(-2px)';
-          }} onMouseLeave={(e) => {
-            e.target.style.backgroundColor = '#39B54A';
-            e.target.style.boxShadow = '0 8px 24px rgba(57, 181, 74, 0.3)';
-            e.target.style.transform = 'translateY(0)';
-          }}>
-            <span className="arrow-hover-label">Schedule a Consultation</span>
-          </a>
+          <div className="hero-copy-group">
+            <h1 className="hero-main-title">
+              <span className="hero-title-line hero-title-line-intro">Built on Generations of Trust,</span>
+              <span className="hero-title-line">We Help You <span style={{ color: '#39B54A' }}>Grow</span></span>
+              <span className="hero-title-line">and <span style={{ color: '#39B54A' }}>Protect Your Wealth</span></span>
+            </h1>
+          </div>
+          <div className="hero-cta-shell">
+            <a href="/contact" className="hero-cta-btn hero-cta-primary inline-arrow-btn arrow-hover-cta" style={{ 
+              padding: '0 32px',
+              borderRadius: '8px', 
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              whiteSpace: 'nowrap',
+              height: '48px',
+              fontSize: '16px',
+              fontWeight: 600,
+              backgroundColor: '#39B54A',
+              color: '#FFFFFF',
+              textDecoration: 'none',
+              border: 'none',
+              boxShadow: '0 8px 24px rgba(57, 181, 74, 0.3)',
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              cursor: 'pointer',
+              letterSpacing: '0.3px'
+            }} onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#2fa03d';
+              e.target.style.boxShadow = '0 12px 32px rgba(57, 181, 74, 0.4)';
+              e.target.style.transform = 'translateY(-2px)';
+            }} onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#39B54A';
+              e.target.style.boxShadow = '0 8px 24px rgba(57, 181, 74, 0.3)';
+              e.target.style.transform = 'translateY(0)';
+            }}>
+              <span className="arrow-hover-label">Schedule a Consultation</span>
+            </a>
+          </div>
         </div>
       </div>
 
