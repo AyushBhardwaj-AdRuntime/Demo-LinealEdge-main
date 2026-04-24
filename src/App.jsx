@@ -30,12 +30,16 @@ function RouteLoaderGate({ children }) {
   const location = useLocation();
   const previousPathRef = useRef(location.pathname);
   const [loaderVisible, setLoaderVisible] = useState(false);
-  const [loaderTheme, setLoaderTheme] = useState('default');
+  const loaderTheme = getRouteLoaderTheme(location.pathname);
 
   useEffect(() => {
     const previousPath = previousPathRef.current;
     previousPathRef.current = location.pathname;
-    setLoaderTheme(getRouteLoaderTheme(location.pathname));
+
+    if (location.pathname === '/') {
+      setLoaderVisible(false);
+      return undefined;
+    }
 
     if (previousPath !== location.pathname) {
       setLoaderVisible(true);
@@ -53,7 +57,7 @@ function RouteLoaderGate({ children }) {
   return (
     <>
       {children}
-      <RouteLoader visible={loaderVisible} theme={loaderTheme} />
+      <RouteLoader visible={loaderVisible && location.pathname !== '/'} theme={loaderTheme} />
     </>
   );
 }

@@ -1,11 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SubscribeBand() {
+  const navigate = useNavigate();
+
   return (
     <section className="services-newsletter-band">
       <div className="services-container">
         <h3 className="services-newsletter-title">Stay Ahead. Subscribe for Expert Insights.</h3>
-        <form className="services-newsletter-form" onSubmit={(event) => event.preventDefault()}>
+        <form
+          className="services-newsletter-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            navigate('/contact');
+          }}
+        >
           <input
             type="email"
             className="services-newsletter-input"

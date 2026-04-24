@@ -1,5 +1,6 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
+import { Link } from 'react-router-dom';
 
 export default function EmpatheticAnchor() {
   const ref = useRef(null);
@@ -38,9 +39,12 @@ export default function EmpatheticAnchor() {
           Your family's goals aren't just points on a data matrix. Let's chart your bespoke future, together.
         </p>
         
-        <button className="empathetic-stagger px-12 py-5 bg-gray-900 text-white hover:bg-green-400 rounded-full text-[13px] font-bold tracking-[0.2em] uppercase transition-colors duration-500 shadow-[0_0_20px_rgba(10,20,40,0.08)] hover:shadow-[0_0_30px_rgba(43,216,103,0.4)]">
+        <Link
+          to="/contact"
+          className="empathetic-stagger inline-flex px-12 py-5 bg-[#00d84a] text-[#071F45] hover:bg-[#00bf41] rounded-full text-[13px] font-bold tracking-[0.2em] uppercase transition-colors duration-500 shadow-[0_0_20px_rgba(0,216,74,0.18)] hover:shadow-[0_0_30px_rgba(0,216,74,0.32)]"
+        >
           Schedule Consultation
-        </button>
+        </Link>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { Link } from 'react-router-dom';
 
 const goals = [
   { id: 'child', name: "Child's Education", years: 12, target: "₹2.5 Cr", risk: "Moderate-Aggressive", points: "0,150 50,140 100,120 150,90 200,60 250,30" },
@@ -96,9 +97,12 @@ export default function BespokeJourneySlider() {
               </svg>
             </div>
             
-            <button className="w-full mt-10 py-4 bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm font-semibold tracking-wide transition-all duration-300 arrow-hover-cta">
+            <Link
+              to="/contact"
+              className="w-full mt-10 py-4 bg-[#00d84a] hover:bg-[#00bf41] text-[#071F45] border border-[#00d84a] rounded-lg text-sm font-semibold tracking-wide transition-all duration-300 arrow-hover-cta inline-flex items-center justify-center"
+            >
               <span className="arrow-hover-label">Align My Objective</span>
-            </button>
+            </Link>
           </div>
 
         </div>

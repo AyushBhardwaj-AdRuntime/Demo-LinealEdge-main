@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
 import CTASection from '../components/CTASection';
 import GenerationsTimeline from '../components/GenerationsTimeline';
@@ -49,7 +50,7 @@ export default function AboutPage() {
                 <div className="aboutx-accent-big">50+</div>
                 <p className="aboutx-accent-desc"> Years of Trust</p>
               </div>
-              <button type="button" className="aboutx-accent-btn arrow-hover-cta arrow-hover-light"><span className="arrow-hover-label">Contact Us</span></button>
+              <Link to="/contact" className="aboutx-accent-btn arrow-hover-cta arrow-hover-light"><span className="arrow-hover-label">Contact Us</span></Link>
             </div>
           </div>
 
@@ -95,9 +96,9 @@ export default function AboutPage() {
           <article className="aboutx-quote-card">
             <p>"Strong systems and bold strategy create enduring success."</p>
             <div className="aboutx-signature" aria-hidden="true">LE</div>
-            <button type="button" className="aboutx-btn-light arrow-hover-cta arrow-hover-light">
+            <Link to="/contact" className="aboutx-btn-light arrow-hover-cta arrow-hover-light">
               <span className="arrow-hover-label">Learn More</span>
-            </button>
+            </Link>
           </article>
 
           {team.map((member) => (

@@ -1,4 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CTASection from '../components/CTASection';
@@ -177,11 +178,17 @@ function HeroSection() {
         <div className="hero-logo-spacer" aria-hidden="true" />
         <div className="hero-bottom-left">
           <h1 className="hero-main-title">
-            <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.95)' }}>Built on Generations of Trust,</span><br/>
-            <span style={{ fontWeight: 600 }}>We Help You <span style={{ color: '#39B54A' }}>Grow</span></span><br/>
-            <span style={{ fontWeight: 600 }}>and <span style={{ color: '#39B54A' }}>Protect Your Wealth</span></span>
+            <span className="hero-title-line hero-title-intro">
+              Built on <span className="hero-title-emphasis">Generations</span> of Trust,
+            </span>
+            <span className="hero-title-line hero-title-strong">
+              We Help You <span className="hero-title-emphasis">Grow</span>
+            </span>
+            <span className="hero-title-line hero-title-strong">
+              and <span className="hero-title-emphasis">Protect Your Wealth</span>
+            </span>
           </h1>
-          <a href="/contact" className="hero-cta-btn hero-cta-primary inline-arrow-btn arrow-hover-cta" style={{ 
+          <Link to="/contact" className="hero-cta-btn hero-cta-primary inline-arrow-btn arrow-hover-cta" style={{ 
             marginTop: '24px', 
             padding: '0 32px',
             borderRadius: '8px', 
@@ -192,25 +199,25 @@ function HeroSection() {
             height: '48px',
             fontSize: '16px',
             fontWeight: 600,
-            backgroundColor: '#39B54A',
+            backgroundColor: 'var(--button-brand-green)',
             color: '#FFFFFF',
             textDecoration: 'none',
             border: 'none',
-            boxShadow: '0 8px 24px rgba(57, 181, 74, 0.3)',
+            boxShadow: '0 8px 24px rgba(16, 185, 129, 0.28)',
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             cursor: 'pointer',
             letterSpacing: '0.3px'
           }} onMouseEnter={(e) => {
-            e.target.style.backgroundColor = '#2fa03d';
-            e.target.style.boxShadow = '0 12px 32px rgba(57, 181, 74, 0.4)';
-            e.target.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.backgroundColor = 'var(--button-brand-green-hover)';
+            e.currentTarget.style.boxShadow = '0 12px 32px rgba(16, 185, 129, 0.36)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
           }} onMouseLeave={(e) => {
-            e.target.style.backgroundColor = '#39B54A';
-            e.target.style.boxShadow = '0 8px 24px rgba(57, 181, 74, 0.3)';
-            e.target.style.transform = 'translateY(0)';
+            e.currentTarget.style.backgroundColor = 'var(--button-brand-green)';
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(16, 185, 129, 0.28)';
+            e.currentTarget.style.transform = 'translateY(0)';
           }}>
             <span className="arrow-hover-label">Schedule a Consultation</span>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -334,8 +341,8 @@ function ScrollytellingSection() {
               ))}
             </div>
             <div className="cta-group" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-              <a href="https://execor.vamtam.com/free-consultation/" target="_blank" rel="noreferrer" className="cta-primary cta-book-call arrow-hover-cta"><span className="arrow-hover-label">Book a Call</span></a>
-              <a href="/services" className="cta-secondary arrow-hover-cta"><span className="arrow-hover-label">View All Services</span></a>
+              <Link to="/contact" className="cta-primary cta-book-call arrow-hover-cta"><span className="arrow-hover-label">Book a Call</span></Link>
+              <Link to="/contact" className="cta-secondary arrow-hover-cta"><span className="arrow-hover-label">View All Services</span></Link>
             </div>
           </div>
 
@@ -430,7 +437,7 @@ function GrowthSection() {
       </p>
       <div className="cta-group" style={{ transform: 'translateY(20px)', opacity: 0 }}>
         <GetStartedButton />
-        <button className="cta-secondary arrow-hover-cta"><span className="arrow-hover-label">Learn More</span></button>
+        <Link to="/contact" className="cta-secondary arrow-hover-cta"><span className="arrow-hover-label">Learn More</span></Link>
       </div>
     </section>
   );
@@ -622,33 +629,68 @@ const journeyStories = [
 
 function BusinessImpactSection() {
   const sectionRef = useRef(null);
+  const wrapperRef = useRef(null);
   const timelineRef = useRef(null);
+  const contentViewportRef = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Pin the section and scrub the timeline text up
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'center center', // Pin exactly in the middle of the screen
-          end: '+=1800', // Duration of the scroll
-          pin: true,
-          scrub: 0.5, // Smooth scrubbing
+      const getScrollDistance = () => {
+        const contentHeight = timelineRef.current?.scrollHeight ?? 0;
+        const visibleHeight = contentViewportRef.current?.offsetHeight ?? 0;
+        return Math.max(0, contentHeight - visibleHeight);
+      };
+
+      const syncSectionHeight = () => {
+        const wrapperHeight = wrapperRef.current?.offsetHeight ?? 0;
+        const scrollDistance = getScrollDistance();
+
+        if (sectionRef.current) {
+          sectionRef.current.style.minHeight = `${wrapperHeight + scrollDistance}px`;
         }
+      };
+
+      syncSectionHeight();
+
+      const trigger = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: () => `+=${Math.max(getScrollDistance(), 1)}`,
+        pin: wrapperRef.current,
+        pinSpacing: false,
+        pinReparent: true,
+        pinType: 'fixed',
+        scrub: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onRefreshInit: syncSectionHeight,
+        onRefresh: self => {
+          syncSectionHeight();
+          gsap.set(timelineRef.current, {
+            y: -getScrollDistance() * self.progress,
+          });
+        },
+        onUpdate: self => {
+          gsap.set(timelineRef.current, {
+            y: -getScrollDistance() * self.progress,
+          });
+        },
       });
 
-      // We translate the right side container upwards based on its total height minus the visible 420px window
-      tl.to(timelineRef.current, {
-        y: () => {
-          const contentHeight = timelineRef.current.offsetHeight;
-          const visibleHeight = 420;
-          return -(contentHeight - visibleHeight + 60); // Extra 60px to clear the last paragraph fully if needed
-        },
-        ease: 'none',
-      });
-      
+      gsap.set(timelineRef.current, { y: 0 });
+
+      return () => {
+        trigger.kill();
+        gsap.set(timelineRef.current, { clearProps: 'transform' });
+      };
     }, sectionRef);
-    return () => ctx.revert();
+
+    return () => {
+      if (sectionRef.current) {
+        sectionRef.current.style.removeProperty('min-height');
+      }
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -657,29 +699,35 @@ function BusinessImpactSection() {
       ref={sectionRef}
       style={{
         width: '100%',
-        padding: '0', // Removed all external padding to cut the empty space
+        padding: '0',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        background: '#07162E', // Solid premium dark blue matching the image vibe
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'visible'
       }}
     >
-      {/* Decorative background glows */}
-      <div style={{ position: 'absolute', inset: '-100px auto auto -100px', width: '280px', height: '280px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(103,161,241,0.08) 0%, rgba(103,161,241,0) 68%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', inset: 'auto -120px -120px auto', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(12,75,145,0.1) 0%, rgba(12,75,145,0) 72%)', pointerEvents: 'none' }} />
-
       <div className="hp-impact__wrapper" style={{ 
-        maxWidth: '1360px', 
         width: '100%', 
-        margin: '0 auto', 
         display: 'flex', 
-        height: '420px', // 30% smaller bounding box
+        minHeight: '100vh',
         position: 'relative', 
         zIndex: 1,
-        padding: '0 40px'
-      }}>
+        alignItems: 'center',
+        padding: '48px 0',
+        background: '#07162E',
+        overflow: 'hidden'
+      }} ref={wrapperRef}>
+        <div style={{ position: 'absolute', inset: '-100px auto auto -100px', width: '280px', height: '280px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(103,161,241,0.08) 0%, rgba(103,161,241,0) 68%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 'auto -120px -120px auto', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(12,75,145,0.1) 0%, rgba(12,75,145,0) 72%)', pointerEvents: 'none' }} />
+        <div style={{
+          maxWidth: '1360px',
+          width: '100%',
+          margin: '0 auto',
+          display: 'flex',
+          minHeight: '560px',
+          padding: '0 40px',
+        }}>
         
         {/* LEFT SIDE: 30% Fixed Content */}
         <aside className="hp-impact__sidebar" style={{ 
@@ -691,24 +739,24 @@ function BusinessImpactSection() {
           paddingRight: '10px',
           paddingTop: '10px' // Align "Our Journey" with the right-side text start position
         }}>
-          <h2 style={{ fontSize: '38px', color: '#ffffff', fontFamily: "'DM Serif Text', Georgia, serif", marginBottom: '50px', fontWeight: 400 }}>
+          <h2 className="hp-impact__title" style={{ fontSize: '46px', color: '#00D84A', fontFamily: "'DM Serif Text', Georgia, serif", marginBottom: '56px', fontWeight: 400, lineHeight: 1.08 }}>
             Our Journey
           </h2>
 
-          <div style={{ marginBottom: '36px' }}>
-            <div style={{ fontSize: '72px', lineHeight: '0.9', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.02em', fontFamily: "'Cormorant Garamond', serif" }}>
+          <div style={{ marginBottom: '44px' }}>
+            <div style={{ fontSize: '134px', lineHeight: '0.86', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.04em', fontFamily: "'Cormorant Garamond', serif" }}>
               50+
             </div>
-            <div style={{ marginTop: '8px', fontSize: '18px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.05em' }}>
+            <div style={{ marginTop: '10px', fontSize: '20px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.05em' }}>
               Years Of Trust
             </div>
           </div>
 
           <div>
-            <div style={{ fontSize: '72px', lineHeight: '0.9', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.02em', fontFamily: "'Cormorant Garamond', serif" }}>
+            <div style={{ fontSize: '134px', lineHeight: '0.86', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.04em', fontFamily: "'Cormorant Garamond', serif" }}>
               1500+
             </div>
-            <div style={{ marginTop: '8px', fontSize: '18px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.05em' }}>
+            <div style={{ marginTop: '10px', fontSize: '20px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.05em' }}>
               Clients Managed
             </div>
           </div>
@@ -717,10 +765,11 @@ function BusinessImpactSection() {
         {/* RIGHT SIDE: 70% Scrollable Window */}
         <div 
           className="hp-impact__content" 
+          ref={contentViewportRef}
           style={{ 
             flex: '0 0 70%', 
             paddingLeft: '80px', 
-            height: '420px', 
+            height: '560px', 
             overflow: 'hidden', // Visually hides text outside the 420px area
             position: 'relative'
           }}
@@ -729,26 +778,27 @@ function BusinessImpactSection() {
           <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '60px', background: 'linear-gradient(180deg, #07162E 0%, rgba(7,22,46,0) 100%)', zIndex: 10, pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '60px', background: 'linear-gradient(0deg, #07162E 0%, rgba(7,22,46,0) 100%)', zIndex: 10, pointerEvents: 'none' }} />
 
-          <div className="hp-impact__timeline" ref={timelineRef} style={{ paddingTop: '60px', paddingBottom: '80px' }}>
+          <div className="hp-impact__timeline" ref={timelineRef} style={{ paddingTop: '40px', paddingBottom: '32px' }}>
             {journeyStories.map((story, index) => (
-              <article key={story.title} className="hp-impact__item" style={{ marginBottom: index === journeyStories.length - 1 ? '0' : '140px' }}>
+              <article key={story.title} className="hp-impact__item" style={{ marginBottom: index === journeyStories.length - 1 ? '0' : '88px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '24px' }}>
-                  <div style={{ color: '#b4e89a', fontSize: '28px', letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 700 }}>
+                  <div className="hp-impact__year" style={{ color: '#00D84A', fontSize: '34px', letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 700 }}>
                     {story.year}
                   </div>
                   <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0)' }} />
                 </div>
 
-                <h3 style={{ fontSize: '52px', lineHeight: '1.1', margin: '0 0 28px', color: '#e1f7e6ff', fontFamily: "'DM Serif Text', Georgia, serif", fontWeight: 400, letterSpacing: '-0.02em' }}>
+                <h3 className="hp-impact__heading" style={{ fontSize: '64px', lineHeight: '1.06', margin: '0 0 32px', color: '#FFFFFF', fontFamily: "'DM Serif Text', Georgia, serif", fontWeight: 400, letterSpacing: '-0.02em' }}>
                   {story.title}
                 </h3>
 
-                <p style={{ margin: 0, maxWidth: '90%', fontSize: '40px', lineHeight: '1.7', color: '#cbd5e1', fontWeight: 500, whiteSpace: 'pre-line' }}>
+                <p style={{ margin: 0, maxWidth: '92%', fontSize: '46px', lineHeight: '1.65', color: '#cbd5e1', fontWeight: 500, whiteSpace: 'pre-line' }}>
                   {story.content}
                 </p>
               </article>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </section>
@@ -799,8 +849,8 @@ function MeetOurLeadersSection() {
           </p>
           
           <div style={{ display: 'flex', gap: '14px' }}>
-            <button className="inline-arrow-btn arrow-hover-cta" style={{ 
-              background: '#b4e89a', 
+            <Link to="/contact" className="inline-arrow-btn arrow-hover-cta" style={{ 
+              background: 'var(--button-brand-green)', 
               border: 'none', 
               padding: '14px 28px', 
               borderRadius: '12px', 
@@ -811,11 +861,12 @@ function MeetOurLeadersSection() {
               display: 'flex',
               alignItems: 'center',
               gap: '10px',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              boxShadow: '0 10px 18px rgba(16, 185, 129, 0.2)'
             }}>
               <span className="arrow-hover-label">Meet the Team</span>
-            </button>
-            <button className="inline-arrow-btn arrow-hover-cta" style={{ 
+            </Link>
+            <Link to="/contact" className="inline-arrow-btn arrow-hover-cta" style={{ 
               background: 'transparent', 
               border: '1px solid #1A3260', 
               padding: '14px 28px', 
@@ -830,7 +881,7 @@ function MeetOurLeadersSection() {
               transition: 'transform 0.2s ease, box-shadow 0.2s ease'
             }}>
               <span className="arrow-hover-label">Career Opportunities</span>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -919,8 +970,8 @@ function OurServicesSectionTwo() {
                 We&apos;re on The Pulse of Tax Industry Trends
               </h2>
             </div>
-            <button className="inline-arrow-btn arrow-hover-cta" style={{
-              background: '#b4e89a',
+            <Link to="/contact" className="inline-arrow-btn arrow-hover-cta" style={{
+              background: 'var(--button-brand-green)',
               color: '#071F45',
               border: 'none',
               padding: '14px 24px',
@@ -932,10 +983,10 @@ function OurServicesSectionTwo() {
               display: 'flex',
               alignItems: 'center',
               gap: '10px',
-              boxShadow: '0 10px 18px rgba(27,61,56,0.18)'
+              boxShadow: '0 10px 18px rgba(16, 185, 129, 0.2)'
             }}>
               <span className="arrow-hover-label">Contact us</span>
-            </button>
+            </Link>
           </div>
 
           {/* Row 1, Col 2 — Increased Profitability */}
@@ -1113,10 +1164,8 @@ function OurBlogSection() {
               Insights & Strategies. Your Guide<br/>to Smarter Accounting.
             </h2>
           </div>
-          <a
-            href="https://execor.vamtam.com/blog/"
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            to="/contact"
             className="arrow-hover-cta arrow-hover-light"
             style={{
               display: 'inline-flex',
@@ -1135,7 +1184,7 @@ function OurBlogSection() {
             }}
           >
             <span className="arrow-hover-label">View More</span>
-          </a>
+          </Link>
         </div>
 
         {/* Blog Cards */}
@@ -1249,10 +1298,8 @@ function WorksheetsSection() {
               Helpful Worksheets to Simplify<br/>Your Finances
             </h2>
           </div>
-          <a
-            href="https://execor.vamtam.com/worksheets/"
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            to="/contact"
             className="arrow-hover-cta arrow-hover-light"
             style={{
               display: 'inline-flex',
@@ -1270,7 +1317,7 @@ function WorksheetsSection() {
             }}
           >
             <span className="arrow-hover-label">View More</span>
-          </a>
+          </Link>
         </div>
 
         {/* Worksheet Cards */}

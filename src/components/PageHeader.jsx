@@ -22,7 +22,7 @@ function derivePageName(pathname) {
   return key.charAt(0).toUpperCase() + key.slice(1);
 }
 
-export default function PageHeader({ title, description }) {
+export default function PageHeader({ title }) {
   const location = useLocation();
   const pageName = derivePageName(location.pathname);
 
