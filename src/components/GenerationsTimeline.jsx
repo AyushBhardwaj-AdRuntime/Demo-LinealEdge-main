@@ -11,8 +11,6 @@ const generations = [
     tagBg: "rgba(180,232,154,0.15)",
     tagColor: "#b4e89a",
     icon: "🌱",
-    stat: "50 km/day",
-    statLabel: "Traveled by bicycle",
     body: "Over five decades ago, our founder began traveling 50 kilometers a day on a bicycle to instill the raw discipline of savings into families. By distributing home piggy banks to children, he planted the very first seeds of financial responsibility — laying the deep, structural groundwork that true wealth requires.",
   },
   {
@@ -25,8 +23,6 @@ const generations = [
     tagBg: "rgba(57,181,74,0.12)",
     tagColor: "#2a9e3a",
     icon: "🛡️",
-    stat: "1500+",
-    statLabel: "Clients Protected",
     body: "As the seedling emerged, the next generation stepped in to nurture and defend it. For decades, our focus was on shielding our clients from external threats through comprehensive life and health insurance, ensuring the roots grew strong and unbreakable. As markets evolved, we guided that protected capital into Mutual Funds — watering the roots through the power of compounding.",
   },
   {
@@ -38,9 +34,7 @@ const generations = [
     accentSoft: "rgba(245,200,66,0.10)",
     tagBg: "rgba(245,200,66,0.12)",
     tagColor: "#c49a00",
-    icon: "🌳",
-    stat: "3 Gen.",
-    statLabel: "of Trusted Advice",
+    icon: "🌳", 
     body: "Today, that carefully protected sapling has grown into a lush, solid tree. Lineal Edge is focused on the harvest — honoring the deep roots of existing clients while welcoming new families with sophisticated, high-yield instruments: Alternative Investment Funds (AIFs), Portfolio Management Services (PMS), and comprehensive Estate Planning — delivered with brilliant technical and real-world clarity.",
   },
 ];
@@ -88,7 +82,7 @@ export default function GenerationsTimeline() {
   return (
     <div style={{
       fontFamily: "system-ui, -apple-system, sans-serif",
-      background: "linear-gradient(160deg, #f0f3ef 0%, #e8eee6 100%)",
+      background: "linear-gradient(160deg, #f7f9fc 0%, #eef3f9 100%)",
       padding: "60px 24px 80px",
     }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -99,9 +93,9 @@ export default function GenerationsTimeline() {
             display: "inline-block",
             background: "#fff",
             border: "1px solid rgba(26,50,96,0.12)",
-            padding: "5px 18px",
+            padding: "8px 24px",
             borderRadius: "999px",
-            fontSize: "11px",
+            fontSize: "14px",
             fontWeight: 700,
             color: "#1A3260",
             letterSpacing: "0.08em",
@@ -110,7 +104,7 @@ export default function GenerationsTimeline() {
           }}>Our Journey</span>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "20px" }}>
             <h2 style={{
-              fontSize: "clamp(32px, 4vw, 52px)",
+              fontSize: "clamp(40px, 5vw, 68px)",
               fontWeight: 400,
               fontFamily: "Georgia, serif",
               color: "#1A3260",
@@ -157,7 +151,7 @@ export default function GenerationsTimeline() {
                   display: "flex",
                   alignItems: "center",
                   gap: "14px",
-                  padding: "16px 20px",
+                  padding: "20px 24px",
                   borderRadius: "14px",
                   border: "none",
                   background: active === i ? "#1A3260" : "transparent",
@@ -168,19 +162,19 @@ export default function GenerationsTimeline() {
                 }}
               >
                 <div style={{
-                  width: "36px", height: "36px", borderRadius: "10px",
+                  width: "44px", height: "44px", borderRadius: "12px",
                   background: active === i ? "rgba(255,255,255,0.12)" : "rgba(26,50,96,0.07)",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "18px", flexShrink: 0,
+                  fontSize: "22px", flexShrink: 0,
                   transition: "background 0.25s ease",
                 }}>
                   {g.icon}
                 </div>
                 <div>
-                  <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: active === i ? "rgba(255,255,255,0.6)" : "#8a9aaa", marginBottom: "2px" }}>
+                  <div style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: active === i ? "rgba(255,255,255,0.7)" : "#8a9aaa", marginBottom: "4px" }}>
                     {g.chapter}
                   </div>
-                  <div style={{ fontSize: "15px", fontWeight: 600, color: active === i ? "#fff" : "#1A3260", lineHeight: 1.2 }}>
+                  <div style={{ fontSize: "18px", fontWeight: 600, color: active === i ? "#fff" : "#1A3260", lineHeight: 1.2 }}>
                     {g.year}
                   </div>
                 </div>
@@ -199,16 +193,22 @@ export default function GenerationsTimeline() {
             boxShadow: "0 24px 56px rgba(10,20,50,0.22)",
             position: "relative",
             overflow: "hidden",
-            minHeight: "480px",
+            minHeight: "700px", //480px
             display: "flex",
             flexDirection: "column",
             gap: "28px",
             animation: "genFadeSlideIn 0.4s ease",
+            alignItems: "center",     // ✅ ADD
+            textAlign: "center",      // ✅ ADD
           }}>
             <style>{`
               @keyframes genFadeSlideIn {
                 from { opacity: 0; transform: translateY(16px); }
                 to   { opacity: 1; transform: translateY(0); }
+              }
+
+              .generations-timeline-label {
+                color: #ffffff !important;
               }
             `}</style>
 
@@ -234,20 +234,24 @@ export default function GenerationsTimeline() {
                 }}>
                   {gen.icon} {gen.chapter}
                 </span>
-                <h3 style={{
+                <h3
+                  className="generations-timeline-label"
+                  style={{
                   fontSize: "clamp(26px, 3vw, 40px)",
                   fontWeight: 400,
                   fontFamily: "Georgia, serif",
                   color: "#ffffff",
                   margin: 0, lineHeight: 1.1, letterSpacing: "-0.02em",
                   maxWidth: "16ch",
-                }}>
+                }}
+                >
                   {gen.label}
                 </h3>
               </div>
 
               {/* Stat badge */}
-              <div style={{
+              {gen.stat &&(
+                <div style={{
                 background: "rgba(255,255,255,0.07)",
                 border: "1px solid rgba(255,255,255,0.12)",
                 borderRadius: "16px",
@@ -263,21 +267,22 @@ export default function GenerationsTimeline() {
                   {gen.statLabel}
                 </div>
               </div>
+              )}
             </div>
 
             {/* Year accent */}
             <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
               <div style={{ width: "40px", height: "1px", background: `${gen.accent}60` }} />
-              <span style={{ fontSize: "13px", fontWeight: 700, color: `${gen.accent}99`, letterSpacing: "0.1em" }}>
+              <span style={{ fontSize: "20px", fontWeight: 700, color: `${gen.accent}99`, letterSpacing: "0.1em" }}>
                 {gen.year}
               </span>
             </div>
 
             {/* Body */}
             <p style={{
-              fontSize: "16px",
-              lineHeight: 1.85,
-              color: "rgba(255,255,255,0.68)",
+              fontSize: "22px",
+              lineHeight: 1.7,
+              color: "rgba(255,255,255,0.9)",
               margin: 0,
               maxWidth: "62ch",
             }}>

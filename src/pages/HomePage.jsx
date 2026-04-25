@@ -181,11 +181,11 @@ function HeroSection() {
             <span className="hero-title-line hero-title-intro">
               Built on <span className="hero-title-emphasis">Generations</span> of Trust,
             </span>
-            <span className="hero-title-line hero-title-strong">
-              We Help You <span className="hero-title-emphasis">Grow</span>
+            <span className="hero-title-line hero-title-strong hero-title-nowrap">
+              We Help You <span className="hero-title-emphasis">Grow</span> and
             </span>
             <span className="hero-title-line hero-title-strong">
-              and <span className="hero-title-emphasis">Protect Your Wealth</span>
+              <span className="hero-title-emphasis">Protect Your Wealth</span>
             </span>
           </h1>
           <Link to="/contact" className="hero-cta-btn hero-cta-primary inline-arrow-btn arrow-hover-cta" style={{ 
