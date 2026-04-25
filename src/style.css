@@ -520,13 +520,16 @@ body {
 }
 
 .services-tailored-section-inner {
-	padding-inline: clamp(16px, 4vw, 40px);
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-inline: 80px;
 }
 
 .services-premium-page .inner-page-hero-container.container {
-	width: min(80rem, calc(100% - (2 * clamp(16px, 4vw, 40px)))) !important;
-	max-width: none !important;
-	padding-inline: clamp(16px, 4vw, 40px) !important;
+	width: 100% !important;
+	max-width: 1200px !important;
+	padding-inline: 80px !important;
 }
 
 .services-tailored-approach-grid {
@@ -612,7 +615,21 @@ body {
 	color: #f8fafc !important;
 }
 
+@media (max-width: 1100px) {
+	.services-tailored-section-inner {
+		padding-inline: 40px;
+	}
+
+	.services-premium-page .inner-page-hero-container.container {
+		padding-inline: 40px !important;
+	}
+}
+
 @media (max-width: 700px) {
+	.services-tailored-section-inner {
+		padding-inline: 20px;
+	}
+
 	.services-premium-page .services-tailored-shell > section {
 		padding-top: 24px !important;
 		padding-bottom: 40px !important;

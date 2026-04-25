@@ -7961,210 +7961,290 @@ img, video {
 
 /* ── 991px: stack major homepage sections ── */
 @media (max-width: 991px) {
-  /* OurServicesSectionOne */
-  section.hp-services-1 {
+  .home-shell {
+    margin: 0 24px !important;
+  }
+
+  .hp-services-1 {
     padding: clamp(48px, 7vw, 80px) var(--container-gutter, 24px) clamp(40px, 5vw, 60px) !important;
   }
 
-  section.hp-services-1 > div:first-child {
+  .hp-services-1__header {
     flex-direction: column !important;
     gap: 20px !important;
     margin-bottom: 40px !important;
   }
 
-  section.hp-services-1 h2 {
+  .hp-services-1 h2,
+  .hp-leaders h2,
+  .hp-blog h2,
+  .hp-worksheets h2 {
     font-size: clamp(2rem, 5vw, 3rem) !important;
     max-width: 100% !important;
   }
 
-  /* BusinessImpactSection */
-  section.hp-impact {
+  .hp-services-1__copy {
+    max-width: 100% !important;
+    padding-top: 0 !important;
+  }
+
+  .hp-services-1__cards {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hp-impact {
     padding: clamp(48px, 7vw, 80px) var(--container-gutter, 24px) !important;
   }
 
-  section.hp-impact > div > div[style*="gridTemplateColumns"] {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
+  .hp-impact__wrapper {
+    min-height: auto !important;
+    padding: 36px 0 !important;
   }
 
-  /* Un-sticky left column on tablet */
-  section.hp-impact > div > div > div[style*="sticky"] {
-    position: static !important;
+  .hp-impact__inner {
+    flex-direction: column !important;
+    min-height: auto !important;
+    gap: 32px !important;
+    padding: 0 24px !important;
+  }
+
+  .hp-impact__sidebar {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    border-right: none !important;
     padding-right: 0 !important;
+    padding-top: 0 !important;
   }
 
-  /* MeetOurLeadersSection */
-  section.hp-leaders {
-    padding: clamp(48px, 7vw, 80px) var(--container-gutter, 24px) !important;
+  .hp-impact__content {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    padding-left: 0 !important;
+    overflow: visible !important;
   }
 
-  section.hp-leaders > div {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
+  .hp-impact__timeline {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 
-  section.hp-leaders h2 {
+  .hp-impact__title {
+    margin-bottom: 28px !important;
     font-size: clamp(2rem, 5vw, 3rem) !important;
   }
 
-  /* OurServicesSectionTwo */
-  section.hp-services-2 > div {
+  .hp-impact__stat {
+    margin-bottom: 24px !important;
+  }
+
+  .hp-impact__stat-value {
+    font-size: clamp(4.5rem, 14vw, 7rem) !important;
+  }
+
+  .hp-impact__stat-label {
+    font-size: 1rem !important;
+  }
+
+  .hp-impact__item {
+    max-width: 100% !important;
+    margin-bottom: 56px !important;
+  }
+
+  .hp-impact__item h3 {
+    font-size: clamp(2.4rem, 6vw, 3.5rem) !important;
+    margin-bottom: 24px !important;
+  }
+
+  .hp-impact__item p {
+    max-width: 100% !important;
+    font-size: clamp(1.15rem, 3vw, 1.5rem) !important;
+    line-height: 1.75 !important;
+  }
+
+  .hp-leaders {
+    padding: clamp(48px, 7vw, 80px) var(--container-gutter, 24px) !important;
+  }
+
+  .hp-leaders__grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .hp-leaders__actions {
+    flex-wrap: wrap;
+  }
+
+  .hp-services-2__container,
+  .hp-blog__container,
+  .hp-worksheets__container {
     padding: 0 var(--container-gutter, 24px) !important;
   }
 
-  section.hp-services-2 > div > div {
+  .hp-services-2__grid {
     grid-template-columns: 1fr 1fr !important;
     gap: 16px !important;
   }
 
-  /* OurBlogSection */
-  section.hp-blog > div {
-    padding: 0 var(--container-gutter, 24px) !important;
+  .hp-services-2__graph-card {
+    grid-row: auto !important;
+    grid-column: 1 / -1;
   }
 
-  section.hp-blog h2 {
-    font-size: clamp(2rem, 5vw, 3rem) !important;
+  .hp-blog__header,
+  .hp-worksheets__header {
+    align-items: flex-start !important;
   }
 
-  /* WorksheetsSection */
-  section.hp-worksheets > div {
-    padding: 0 var(--container-gutter, 24px) !important;
-  }
-
-  section.hp-worksheets h2 {
-    font-size: clamp(2rem, 5vw, 3rem) !important;
-  }
-
-  section.hp-worksheets > div > div[style*="gridTemplateColumns: 'repeat(3"] {
+  .hp-worksheets__grid {
     grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)) !important;
   }
 }
 
 /* ── 768px: single column homepage sections ── */
 @media (max-width: 768px) {
-  /* Services section 1 stacks cards */
-  section.hp-services-1 > div[style*="gridTemplateColumns"] {
-    grid-template-columns: 1fr !important;
+  .hero,
+  .scrolly-section {
+    height: 100svh !important;
+    min-height: 640px !important;
   }
 
-  section.hp-services-1 h3[style*="64px"] {
-    font-size: clamp(2rem, 8vw, 3rem) !important;
+  .home-shell {
+    margin: 0 16px !important;
   }
 
-  section.hp-services-1 {
+  .hp-services-1 {
     padding: 48px 16px 36px !important;
   }
 
-  /* Services 2 bento → 1 col */
-  section.hp-services-2 > div > div {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Un-span graph card */
-  section.hp-services-2 > div > div > div[style*="gridRow"] {
-    grid-row: auto !important;
-  }
-
-  section.hp-services-2 h2[style*="fontSize"] {
-    font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
-  }
-
-  /* Blog → 1 col, stack header */
-  section.hp-blog > div > div[style*="justifyContent: 'space-between'"] {
-    flex-direction: column !important;
-    gap: 16px !important;
-    margin-bottom: 32px !important;
-  }
-
-  section.hp-blog > div > div[style*="gridTemplateColumns: '1fr 1fr'"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  section.hp-blog h2 {
-    font-size: clamp(1.8rem, 6vw, 2.4rem) !important;
-  }
-
-  section.hp-blog {
-    padding: 72px 0 !important;
-  }
-
-  /* Worksheets → 1 col, stack header */
-  section.hp-worksheets > div > div[style*="justifyContent: 'space-between'"] {
-    flex-direction: column !important;
-    gap: 16px !important;
-    margin-bottom: 32px !important;
-  }
-
-  section.hp-worksheets > div > div[style*="repeat(3"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  section.hp-worksheets h2 {
-    font-size: clamp(1.8rem, 6vw, 2.4rem) !important;
-  }
-
-  section.hp-worksheets {
-    padding: 72px 0 !important;
-  }
-
-  /* Impact section */
-  section.hp-impact {
-    padding: 48px 16px !important;
-  }
-
-  section.hp-impact div[style*="paddingLeft: '72px'"] {
-    padding-left: 36px !important;
-  }
-
-  section.hp-impact div[style*="minHeight: '560px'"] {
+  .hp-services-1__card {
+    padding: 24px 20px !important;
     min-height: auto !important;
   }
 
-  /* Story article cards */
-  section.hp-impact article {
-    padding: 24px 18px !important;
-    border-radius: 16px !important;
+  .hp-services-1__card-top {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
   }
 
-  /* Leaders portraits 1 col */
-  section.hp-leaders > div > div[style*="gridTemplateColumns: '1fr 1fr'"] {
+  .hp-services-1__card-title {
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+    max-width: none !important;
+  }
+
+  .hp-services-1__logo-tile {
+    width: 96px !important;
+    min-width: 96px !important;
+    height: 80px !important;
+  }
+
+  .hp-services-1__points {
+    grid-template-columns: 1fr !important;
+    margin-top: 18px !important;
+  }
+
+  .hp-impact {
+    padding: 48px 16px !important;
+  }
+
+  .hp-impact__inner {
+    padding: 0 16px !important;
+  }
+
+  .hp-impact__year {
+    font-size: 1.4rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .hp-impact__item {
+    margin-bottom: 48px !important;
+  }
+
+  .hp-impact__item h3 {
+    font-size: clamp(2rem, 8vw, 2.8rem) !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hp-impact__item p {
+    font-size: clamp(1rem, 4.3vw, 1.125rem) !important;
+    line-height: 1.72 !important;
+  }
+
+  .hp-leaders {
+    padding: 48px 16px 56px !important;
+  }
+
+  .hp-leaders__actions {
+    flex-direction: column;
+  }
+
+  .hp-leaders__actions > a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hp-leaders__portraits,
+  .hp-services-2__grid,
+  .hp-blog__grid,
+  .hp-worksheets__grid {
     grid-template-columns: 1fr !important;
   }
 
-  section.hp-leaders {
-    padding: 48px 16px 56px !important;
+  .hp-services-2__hero-card,
+  .hp-services-2__graph-card {
+    padding: 24px !important;
+  }
+
+  .hp-blog,
+  .hp-worksheets {
+    padding: 72px 0 !important;
+  }
+
+  .hp-blog__header,
+  .hp-worksheets__header {
+    flex-direction: column !important;
+    gap: 16px !important;
+    margin-bottom: 32px !important;
   }
 }
 
 /* ── 480px: fine-tune homepage tightest sizes ── */
 @media (max-width: 480px) {
-  section.hp-services-1 h2,
-  section.hp-leaders h2,
-  section.hp-blog h2,
-  section.hp-worksheets h2 {
+  .hero,
+  .scrolly-section {
+    min-height: 560px !important;
+  }
+
+  .home-shell {
+    margin: 0 12px !important;
+  }
+
+  .hp-services-1 h2,
+  .hp-leaders h2,
+  .hp-blog h2,
+  .hp-worksheets h2 {
     font-size: clamp(1.6rem, 8vw, 2rem) !important;
   }
 
-  section.hp-services-1 > div > div[style*="maxWidth: '420px'"] {
-    padding-top: 0 !important;
-    max-width: 100% !important;
-  }
-
-  section.hp-blog > div,
-  section.hp-worksheets > div {
+  .hp-blog__container,
+  .hp-worksheets__container,
+  .hp-services-2__container {
     padding: 0 14px !important;
   }
 
-  /* Business impact at 480 — tighter story padding */
-  section.hp-impact article {
-    padding: 18px 14px !important;
+  .hp-impact__inner {
+    padding: 0 14px !important;
   }
 
-  section.hp-impact h3[style] {
+  .hp-impact__stat-value {
+    font-size: clamp(3.5rem, 18vw, 4.75rem) !important;
+  }
+
+  .hp-impact__item h3 {
     font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
   }
 
-  section.hp-impact p[style*="fontSize: '18px'"] {
+  .hp-impact__item p {
     font-size: 15px !important;
     line-height: 1.65 !important;
   }
@@ -8207,37 +8287,15 @@ img, video {
 }
 
 @media (max-width: 991px) {
-  .hp-impact > div {
-    flex-direction: column !important;
-  }
-
   .hp-impact__sidebar {
     width: 100% !important;
     min-width: auto !important;
-  }
-
-  .hp-impact__sidebar-content {
-    position: static !important;
-    padding-right: 0 !important;
-    border-right: none !important;
-  }
-
-  .hp-impact__timeline {
-    width: 100% !important;
   }
 }
 
 @media (max-width: 768px) {
   .hp-impact {
     padding: 48px 20px !important;
-  }
-
-  .hp-impact > div {
-    gap: 32px !important;
-  }
-
-  .hp-impact__sidebar-content {
-    padding-right: 0 !important;
   }
 
   .hp-impact__item h3 {

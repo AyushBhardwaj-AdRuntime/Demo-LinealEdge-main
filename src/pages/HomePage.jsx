@@ -355,6 +355,8 @@ function ScrollytellingSection() {
 /* ── Phase Sections ─────────────────── */
 function PhaseSection({ id, className, label, title, description, details, Visual, reversed, indicatorState, dividerClass }) {
   const ref = useRef(null);
+  const visualNode = Visual ? React.createElement(Visual, { className: 'mark-svg brand-logo-focus-wrapper' }) : null;
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(`.${className} .phase-visual`, {
@@ -378,7 +380,7 @@ function PhaseSection({ id, className, label, title, description, details, Visua
       <div className="section-connector top"><div className="connector-glow" /></div>
       <div className="phase-visual" style={{ transform: `translateX(${reversed ? '40' : '-40'}px)`, opacity: 0 }}>
         <div className={`visual-glow ${reversed ? 'green-glow' : 'white-glow'}`} />
-        <Visual className="mark-svg brand-logo-focus-wrapper" />
+        {visualNode}
       </div>
       <div className={`phase-content ${reversed ? 'right-pad' : 'left-pad'}`} style={{ transform: `translateX(${reversed ? '-40' : '40'}px)`, opacity: 0 }}>
         <div className="phase-label"><div className="label-line" /><span className="label-text">{label}</span></div>
@@ -477,10 +479,10 @@ function OurServicesSectionOne() {
   return (
     <section className="hp-services-1" style={{ padding: '140px 100px 80px' }}>
       {/* Header Split — two columns */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '70px', gap: '60px' }}>
+      <div className="hp-services-1__header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '70px', gap: '60px' }}>
         
         {/* Left Column */}
-        <div style={{ flex: '0 0 auto' }}>
+        <div className="hp-services-1__intro" style={{ flex: '0 0 auto' }}>
           <span style={{ 
             display: 'inline-block', 
             backgroundColor: '#ffffff', 
@@ -511,7 +513,7 @@ function OurServicesSectionOne() {
         </div>
 
         {/* Right Column */}
-        <div style={{ maxWidth: '420px', paddingTop: '60px' }}>
+        <div className="hp-services-1__copy" style={{ maxWidth: '420px', paddingTop: '60px' }}>
           <p style={{ 
             fontSize: '18px', 
             lineHeight: '1.6', 
@@ -524,9 +526,9 @@ function OurServicesSectionOne() {
       </div>
 
       {/* Service Cards Grid */}
-      <div className="service-cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '20px' }}>
+      <div className="service-cards-grid hp-services-1__cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '20px' }}>
         {solutionCards.map((card) => (
-          <div key={card.title} style={{
+          <div key={card.title} className="hp-services-1__card" style={{
             display: 'flex',
             flexDirection: 'column',
             borderRadius: '28px',
@@ -535,14 +537,14 @@ function OurServicesSectionOne() {
             backgroundColor: card.backgroundColor,
             boxShadow: '0 14px 30px rgba(10,20,40,0.12)'
           }}>
-            <div style={{
+            <div className="hp-services-1__card-top" style={{
               display: 'grid',
               gridTemplateColumns: 'minmax(0, 1fr) 136px',
               gap: '26px',
               alignItems: 'start'
             }}>
               <h3
-                className={card.title === 'Protection Solutions' ? 'service-title-protection' : ''}
+                className={`hp-services-1__card-title ${card.title === 'Protection Solutions' ? 'service-title-protection' : ''}`}
                 style={{
                 fontSize: '64px',
                 lineHeight: '1.04',
@@ -555,7 +557,7 @@ function OurServicesSectionOne() {
                 {card.title}
               </h3>
 
-              <div style={{
+              <div className="hp-services-1__logo-tile" style={{
                 width: '136px',
                 minWidth: '136px',
                 borderRadius: '12px',
@@ -569,7 +571,7 @@ function OurServicesSectionOne() {
               </div>
             </div>
 
-            <div style={{
+            <div className="hp-services-1__points" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
               gap: '12px',
@@ -634,62 +636,73 @@ function BusinessImpactSection() {
   const contentViewportRef = useRef(null);
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const getScrollDistance = () => {
-        const contentHeight = timelineRef.current?.scrollHeight ?? 0;
-        const visibleHeight = contentViewportRef.current?.offsetHeight ?? 0;
-        return Math.max(0, contentHeight - visibleHeight);
-      };
+    const sectionNode = sectionRef.current;
+    const timelineNode = timelineRef.current;
+    const mm = gsap.matchMedia();
 
-      const syncSectionHeight = () => {
-        const wrapperHeight = wrapperRef.current?.offsetHeight ?? 0;
-        const scrollDistance = getScrollDistance();
+    mm.add('(min-width: 992px)', () => {
+      const ctx = gsap.context(() => {
+        const getScrollDistance = () => {
+          const contentHeight = timelineRef.current?.scrollHeight ?? 0;
+          const visibleHeight = contentViewportRef.current?.offsetHeight ?? 0;
+          return Math.max(0, contentHeight - visibleHeight);
+        };
 
-        if (sectionRef.current) {
-          sectionRef.current.style.minHeight = `${wrapperHeight + scrollDistance}px`;
-        }
-      };
+        const syncSectionHeight = () => {
+          const wrapperHeight = wrapperRef.current?.offsetHeight ?? 0;
+          const scrollDistance = getScrollDistance();
 
-      syncSectionHeight();
+          if (sectionRef.current) {
+            sectionRef.current.style.minHeight = `${wrapperHeight + scrollDistance}px`;
+          }
+        };
 
-      const trigger = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: () => `+=${Math.max(getScrollDistance(), 1)}`,
-        pin: wrapperRef.current,
-        pinSpacing: false,
-        pinReparent: true,
-        pinType: 'fixed',
-        scrub: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onRefreshInit: syncSectionHeight,
-        onRefresh: self => {
-          syncSectionHeight();
-          gsap.set(timelineRef.current, {
-            y: -getScrollDistance() * self.progress,
-          });
-        },
-        onUpdate: self => {
-          gsap.set(timelineRef.current, {
-            y: -getScrollDistance() * self.progress,
-          });
-        },
-      });
+        syncSectionHeight();
 
-      gsap.set(timelineRef.current, { y: 0 });
+        const trigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: () => `+=${Math.max(getScrollDistance(), 1)}`,
+          pin: wrapperRef.current,
+          pinSpacing: false,
+          pinReparent: true,
+          pinType: 'fixed',
+          scrub: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefreshInit: syncSectionHeight,
+          onRefresh: self => {
+            syncSectionHeight();
+            gsap.set(timelineRef.current, {
+              y: -getScrollDistance() * self.progress,
+            });
+          },
+          onUpdate: self => {
+            gsap.set(timelineRef.current, {
+              y: -getScrollDistance() * self.progress,
+            });
+          },
+        });
 
-      return () => {
-        trigger.kill();
-        gsap.set(timelineRef.current, { clearProps: 'transform' });
-      };
-    }, sectionRef);
+        gsap.set(timelineRef.current, { y: 0 });
+
+        return () => {
+          trigger.kill();
+          gsap.set(timelineRef.current, { clearProps: 'transform' });
+        };
+      }, sectionRef);
+
+      return () => ctx.revert();
+    });
 
     return () => {
-      if (sectionRef.current) {
-        sectionRef.current.style.removeProperty('min-height');
+      if (sectionNode) {
+        sectionNode.style.removeProperty('min-height');
       }
-      ctx.revert();
+      if (timelineNode) {
+        gsap.set(timelineNode, { clearProps: 'transform' });
+      }
+      mm.revert();
     };
   }, []);
 
@@ -720,7 +733,7 @@ function BusinessImpactSection() {
       }} ref={wrapperRef}>
         <div style={{ position: 'absolute', inset: '-100px auto auto -100px', width: '280px', height: '280px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(103,161,241,0.08) 0%, rgba(103,161,241,0) 68%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', inset: 'auto -120px -120px auto', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(12,75,145,0.1) 0%, rgba(12,75,145,0) 72%)', pointerEvents: 'none' }} />
-        <div style={{
+        <div className="hp-impact__inner" style={{
           maxWidth: '1360px',
           width: '100%',
           margin: '0 auto',
@@ -743,20 +756,20 @@ function BusinessImpactSection() {
             Our Journey
           </h2>
 
-          <div style={{ marginBottom: '44px' }}>
-            <div style={{ fontSize: '134px', lineHeight: '0.86', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.04em', fontFamily: "'Cormorant Garamond', serif" }}>
+          <div className="hp-impact__stat" style={{ marginBottom: '44px' }}>
+            <div className="hp-impact__stat-value" style={{ fontSize: '134px', lineHeight: '0.86', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.04em', fontFamily: "'Cormorant Garamond', serif" }}>
               50+
             </div>
-            <div style={{ marginTop: '10px', fontSize: '20px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.05em' }}>
+            <div className="hp-impact__stat-label" style={{ marginTop: '10px', fontSize: '20px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.05em' }}>
               Years Of Trust
             </div>
           </div>
 
-          <div>
-            <div style={{ fontSize: '134px', lineHeight: '0.86', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.04em', fontFamily: "'Cormorant Garamond', serif" }}>
+          <div className="hp-impact__stat">
+            <div className="hp-impact__stat-value" style={{ fontSize: '134px', lineHeight: '0.86', fontWeight: 400, color: '#ffffff', letterSpacing: '-0.04em', fontFamily: "'Cormorant Garamond', serif" }}>
               1500+
             </div>
-            <div style={{ marginTop: '10px', fontSize: '20px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.05em' }}>
+            <div className="hp-impact__stat-label" style={{ marginTop: '10px', fontSize: '20px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.05em' }}>
               Clients Managed
             </div>
           </div>
@@ -808,10 +821,10 @@ function BusinessImpactSection() {
 function MeetOurLeadersSection() {
   return (
     <section className="hp-leaders" style={{ padding: '100px 100px 120px', background: 'transparent' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '60px', alignItems: 'flex-start' }}>
+      <div className="hp-leaders__grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '60px', alignItems: 'flex-start' }}>
         
         {/* Left Side: Text and Buttons */}
-        <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '10px' }}>
+        <div className="hp-leaders__intro" style={{ display: 'flex', flexDirection: 'column', paddingTop: '10px' }}>
           <span style={{ 
             display: 'inline-block', 
             backgroundColor: '#ffffff', 
@@ -848,7 +861,7 @@ function MeetOurLeadersSection() {
             Our success stems from a seasoned professional team bringing extensive experience and expertise to every client engagement.
           </p>
           
-          <div style={{ display: 'flex', gap: '14px' }}>
+          <div className="hp-leaders__actions" style={{ display: 'flex', gap: '14px' }}>
             <Link to="/contact" className="inline-arrow-btn arrow-hover-cta" style={{ 
               background: 'var(--button-brand-green)', 
               border: 'none', 
@@ -886,7 +899,7 @@ function MeetOurLeadersSection() {
         </div>
 
         {/* Right Side: Portrait Cards */}
-        <div className="portrait-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+        <div className="portrait-grid hp-leaders__portraits" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
           <div>
             <div style={{ borderRadius: '16px', overflow: 'hidden', marginBottom: '16px', aspectRatio: '3/4' }}>
               <img
@@ -927,8 +940,8 @@ function MeetOurLeadersSection() {
 function OurServicesSectionTwo() {
   return (
     <section className="hp-services-2" style={{ padding: '100px 0', background: 'linear-gradient(180deg, #ffffff 0%, #f6fafb 100%)' }}>
-      <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '0 60px' }}>
-        <div style={{
+      <div className="hp-services-2__container" style={{ maxWidth: '1340px', margin: '0 auto', padding: '0 60px' }}>
+        <div className="hp-services-2__grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
           gridTemplateRows: 'auto auto',
@@ -936,7 +949,7 @@ function OurServicesSectionTwo() {
         }}>
 
           {/* Row 1, Col 1 — Dark teal hero card */}
-          <div style={{
+          <div className="hp-services-2__hero-card" style={{
             background: 'repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(255,255,255,0.04) 15px, rgba(255,255,255,0.04) 18px), radial-gradient(circle at 86% 14%, rgba(198,233,159,0.12) 0%, transparent 56%), linear-gradient(155deg, #071F45 0%, #1A3260 100%)',
             borderRadius: '14px',
             padding: '34px',
@@ -1026,7 +1039,7 @@ function OurServicesSectionTwo() {
           </div>
 
           {/* Row 1, Col 3 — Graph card (spans 2 rows) */}
-          <div style={{
+          <div className="hp-services-2__graph-card" style={{
             background: 'linear-gradient(180deg, #d0edb1 0%, #bddf9d 100%)',
             borderRadius: '14px',
             padding: '34px',
@@ -1135,10 +1148,10 @@ function OurBlogSection() {
 
   return (
     <section className="hp-blog" style={{ padding: '120px 0', background: '#f2f4f1' }}>
-      <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '0 60px' }}>
+      <div className="hp-blog__container" style={{ maxWidth: '1340px', margin: '0 auto', padding: '0 60px' }}>
 
         {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '50px' }}>
+        <div className="hp-blog__header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '50px' }}>
           <div>
             <span style={{
               display: 'inline-block',
@@ -1188,7 +1201,7 @@ function OurBlogSection() {
         </div>
 
         {/* Blog Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+        <div className="hp-blog__grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
           {blogPosts.map((post) => (
             <a
               key={post.title}
@@ -1268,10 +1281,10 @@ function WorksheetsSection() {
 
   return (
     <section className="hp-worksheets" style={{ padding: '120px 0', background: '#f7f8f6' }}>
-      <div style={{ maxWidth: '1340px', margin: '0 auto', padding: '0 60px' }}>
+      <div className="hp-worksheets__container" style={{ maxWidth: '1340px', margin: '0 auto', padding: '0 60px' }}>
 
         {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '50px' }}>
+        <div className="hp-worksheets__header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '50px' }}>
           <div>
             <span style={{
               display: 'inline-block',
@@ -1321,7 +1334,7 @@ function WorksheetsSection() {
         </div>
 
         {/* Worksheet Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+        <div className="hp-worksheets__grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
           {worksheets.map((ws) => (
             <div key={ws.title} style={{
               background: '#ffffff',
@@ -1384,7 +1397,7 @@ export default function HomePage() {
       <ScrollytellingSection />
       <div className="landing-sections">
         {/* Unified card wrapper — Lineal Edge-style connected sections */}
-        <div style={{
+        <div className="home-shell" style={{
           maxWidth: '1440px',
           margin: '0 auto',
           // borderRadius: '22px',
