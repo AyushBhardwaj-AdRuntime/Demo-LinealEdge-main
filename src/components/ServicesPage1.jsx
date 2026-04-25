@@ -56,7 +56,7 @@ const ServicesPage1 = () => {
             </div>
 
             {/* Right Card */}
-            <div className="services-tailored-feature-card services-tailored-feature-card-accent p-6 md:p-8 transition-all duration-300">
+            <div className="services-tailored-feature-card services-tailored-feature-card-light p-6 md:p-8 transition-all duration-300">
 
               <div className="services-tailored-icon-box services-tailored-icon-box-soft mb-6">
                 <svg className="w-6 h-6 text-[#a88657]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,7 +92,7 @@ const ServicesPage1 = () => {
       </section>
 
       {/* SECTION 2 */}
-      <section className="bg-[#1c1917] text-white">
+      <section className="bg-[#071F45] text-white">
         <div className="services-tailored-section-inner max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
 
           {/* PROTECTION */}
