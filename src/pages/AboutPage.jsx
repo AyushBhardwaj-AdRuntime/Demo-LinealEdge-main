@@ -21,6 +21,34 @@ const team = [
   { name: 'Rebeca Johnson', role: 'Senior Tax Manager', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=80' },
 ];
 
+function MissionIcon() {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="24" cy="24" r="11.5" fill="none" stroke="currentColor" strokeWidth="2.4" />
+      <circle cx="24" cy="24" r="5" fill="none" stroke="currentColor" strokeWidth="2.4" />
+      <path d="M24 7.5v5.2M40.5 24h-5.2M24 40.5v-5.2M7.5 24h5.2" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M24 24L35.5 12.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M31.8 12.5h3.7v3.7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function VisionIcon() {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <path
+        d="M6.5 24s6.2-9 17.5-9 17.5 9 17.5 9-6.2 9-17.5 9S6.5 24 6.5 24Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="24" cy="24" r="5.5" fill="none" stroke="currentColor" strokeWidth="2.4" />
+    </svg>
+  );
+}
+
 export default function AboutPage() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -67,18 +95,36 @@ export default function AboutPage() {
 
       {/* Mission & Vision Section */}
       <section className="aboutx-shell aboutx-missionvision">
-        <div className="missionvision-row">
-          <div className="missionvision-box">
-            <h3 className="missionvision-heading">Our Mission:</h3>
-            <p>
-              To help individuals and families preserve, protect, and grow their wealth through disciplined, personalized financial strategies combining generational wisdom with modern financial solutions.
-            </p>
-          </div>
-          <div className="missionvision-box">
-            <h3 className="missionvision-heading">Our Vision:</h3>
-            <p>
-              To redefine wealth management as a generational journey, built on trust, clarity, and long-term thinking.
-            </p>
+        <div className="missionvision-card">
+          <div className="missionvision-glow missionvision-glow-top" aria-hidden="true" />
+          <div className="missionvision-glow missionvision-glow-bottom" aria-hidden="true" />
+          <div className="missionvision-ring missionvision-ring-lg" aria-hidden="true" />
+          <div className="missionvision-ring missionvision-ring-sm" aria-hidden="true" />
+          <div className="missionvision-dots missionvision-dots-left" aria-hidden="true" />
+          <div className="missionvision-dots missionvision-dots-right" aria-hidden="true" />
+
+          <div className="missionvision-grid">
+            <article className="missionvision-panel">
+              <div className="missionvision-icon-wrap">
+                <MissionIcon />
+              </div>
+              <h3 className="missionvision-heading">Our Mission</h3>
+              <span className="missionvision-accent-line" aria-hidden="true" />
+              <p className="missionvision-copy">
+                To help individuals and families preserve, protect, and grow their wealth through disciplined, personalized financial strategies combining generational wisdom with modern financial solutions.
+              </p>
+            </article>
+
+            <article className="missionvision-panel">
+              <div className="missionvision-icon-wrap">
+                <VisionIcon />
+              </div>
+              <h3 className="missionvision-heading">Our Vision</h3>
+              <span className="missionvision-accent-line" aria-hidden="true" />
+              <p className="missionvision-copy">
+                To redefine wealth management as a generational journey, built on trust, clarity, and long-term thinking.
+              </p>
+            </article>
           </div>
         </div>
       </section>

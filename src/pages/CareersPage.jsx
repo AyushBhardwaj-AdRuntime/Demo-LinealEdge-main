@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { BriefcaseBusiness, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import CTASection from '../components/CTASection';
+import PageHeader from '../components/PageHeader';
 
 const trustStats = [
   { value: '50+', label: 'Years of Trust' },
@@ -14,21 +15,27 @@ export default function CareersPage() {
   }, []);
 
   return (
+
     <main className="page-content careers-coming-page">
+      <PageHeader
+              title="Careers"
+              // description="Learn who we are, what we stand for, and how we guide clients with clarity and long-term focus."
+            />
       <style>{`
-        .careers-coming-page {
-          min-height: 100vh;
-          background:
-            radial-gradient(circle at 18% 18%, rgba(57, 181, 74, 0.08), transparent 26%),
-            radial-gradient(circle at 82% 10%, rgba(245, 200, 66, 0.10), transparent 28%),
-            linear-gradient(180deg, #f8fafc 0%, #f4f7fb 44%, #eef3f9 100%);
-          color: #18386f;
-        }
+        // .careers-coming-page {
+        //   min-height: 100vh;
+        //   background:
+        //     radial-gradient(circle at 18% 18%, rgba(57, 181, 74, 0.08), transparent 26%),
+        //     radial-gradient(circle at 82% 10%, rgba(245, 200, 66, 0.10), transparent 28%),
+        //     linear-gradient(180deg, #f8fafc 0%, #f4f7fb 44%, #eef3f9 100%);
+        //   color: #18386f;
+        // }
 
         .careers-coming-shell {
           position: relative;
           overflow: hidden;
-          padding: clamp(120px, 14vw, 164px) 20px clamp(84px, 10vw, 120px);
+          // padding: clamp(120px, 14vw, 164px) 80px clamp(84px, 10vw, 120px);
+          
         }
 
         .careers-coming-shell::before,
@@ -37,7 +44,7 @@ export default function CareersPage() {
           position: absolute;
           border-radius: 999px;
           filter: blur(56px);
-          pointer-events: none;
+          pointer-events: none; 
         }
 
         .careers-coming-shell::before {
@@ -45,7 +52,7 @@ export default function CareersPage() {
           height: min(34vw, 340px);
           top: 8%;
           left: -3%;
-          background: radial-gradient(circle, rgba(57, 181, 74, 0.12) 0%, transparent 72%);
+          // background: radial-gradient(circle, rgba(57, 181, 74, 0.12) 0%, transparent 72%);
         }
 
         .careers-coming-shell::after {
@@ -53,46 +60,48 @@ export default function CareersPage() {
           height: min(38vw, 380px);
           right: -4%;
           bottom: 6%;
-          background: radial-gradient(circle, rgba(245, 200, 66, 0.12) 0%, transparent 72%);
+          // background: radial-gradient(circle, rgba(245, 200, 66, 0.12) 0%, transparent 72%);
         }
 
         .careers-coming-container {
-          width: min(1180px, 100%);
+          width: 100%;
+          max-width: 1200px;
           margin: 0 auto;
           position: relative;
           z-index: 1;
+          padding: 0 80px;
         }
 
-        .careers-coming-panel {
-          position: relative;
-          padding: clamp(32px, 5vw, 56px);
-          border-radius: 34px;
-          border: 1px solid rgba(24, 56, 111, 0.08);
-          background:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 252, 0.92)),
-            rgba(255, 255, 255, 0.9);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.7),
-            0 28px 80px rgba(18, 41, 76, 0.08);
-          backdrop-filter: blur(20px);
-          overflow: hidden;
-        }
+        // .careers-coming-panel {
+        //   position: relative;
+        //   padding: clamp(32px, 5vw, 56px);
+        //   border-radius: 34px;
+        //   border: 1px solid rgba(24, 56, 111, 0.08);
+        //   background:
+        //     linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 252, 0.92)),
+        //     rgba(255, 255, 255, 0.9);
+        //   box-shadow:
+        //     inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        //     0 28px 80px rgba(18, 41, 76, 0.08);
+        //   backdrop-filter: blur(20px);
+        //   overflow: hidden;
+        // }
 
-        .careers-coming-panel::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background:
-            linear-gradient(120deg, rgba(255, 255, 255, 0.5), transparent 34%),
-            linear-gradient(180deg, transparent 0%, rgba(24, 56, 111, 0.02) 100%);
-          pointer-events: none;
-        }
+        // .careers-coming-panel::before {
+        //   content: '';
+        //   position: absolute;
+        //   inset: 0;
+        //   background:
+        //     linear-gradient(120deg, rgba(255, 255, 255, 0.5), transparent 34%),
+        //     linear-gradient(180deg, transparent 0%, rgba(24, 56, 111, 0.02) 100%);
+        //   pointer-events: none;
+        // }
 
         .careers-coming-grid {
           display: grid;
           grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
           gap: clamp(28px, 5vw, 64px);
-          align-items: center;
+          // align-items: start; /* 🔥 KEY CHANGE */
         }
 
         .careers-coming-kicker {
@@ -114,12 +123,12 @@ export default function CareersPage() {
 
         .careers-coming-title {
           margin: 24px 0 20px;
-          font-family: 'Playfair Display', 'DM Serif Text', Georgia, serif !important;
-          font-size: clamp(3.2rem, 6vw, 5.6rem) !important;
-          line-height: 0.98 !important;
-          letter-spacing: 0 !important;
-          color: #18386f !important;
-          max-width: 10ch;
+          font-family: 'Lora', 'Times New Roman', serif !important;
+          font-size: clamp(3rem, 5.5vw, 5rem) !important;
+          line-height: 1.04 !important;
+          sure 
+          font-weight: 500 !important;
+          max-width: 11ch;
           text-wrap: balance;
         }
 
@@ -127,9 +136,9 @@ export default function CareersPage() {
           margin: 0;
           max-width: 60ch;
           font-family: 'Inter', sans-serif !important;
-          font-size: clamp(1rem, 1.45vw, 1.12rem) !important;
-          line-height: 1.85 !important;
-          color: rgba(24, 56, 111, 0.72) !important;
+          font-size: 1.01rem !important;
+          line-height: 1.7 !important;
+          color: #596266 !important;
         }
 
         .careers-coming-badge {
@@ -173,11 +182,11 @@ export default function CareersPage() {
         }
 
         .careers-coming-side-label {
-          color: rgba(24, 56, 111, 0.48) !important;
+          color: #5c6467 !important;
           font-family: 'Inter', sans-serif !important;
-          font-size: 0.8rem !important;
+          font-size: 12px !important;
           line-height: 1.4 !important;
-          letter-spacing: 0.16em !important;
+          letter-spacing: 0.08em !important;
           text-transform: uppercase;
           margin: 0 0 20px;
         }
@@ -196,19 +205,20 @@ export default function CareersPage() {
 
         .careers-coming-stat-value {
           display: block;
-          font-family: 'Playfair Display', 'DM Serif Text', Georgia, serif;
+          font-family: 'Lora', 'Times New Roman', serif !important;
           font-size: clamp(1.8rem, 3vw, 2.6rem);
           line-height: 1;
-          color: #18386f;
+          color: #111517;
           margin-bottom: 8px;
+          font-weight: 500;
         }
 
         .careers-coming-stat-label {
           display: block;
-          font-family: 'Inter', sans-serif;
-          font-size: 0.98rem;
-          line-height: 1.6;
-          color: rgba(24, 56, 111, 0.64);
+          font-family: 'Inter', sans-serif !important;
+          font-size: 1.01rem !important;
+          line-height: 1.6 !important;
+          color: #596266 !important;
         }
 
         .careers-coming-soon {
@@ -219,10 +229,10 @@ export default function CareersPage() {
 
         .careers-coming-soon strong {
           display: inline-block;
-          font-family: 'Inter', sans-serif;
-          font-size: 0.8rem;
+          font-family: 'Inter', sans-serif !important;
+          font-size: 12px !important;
           font-weight: 700;
-          letter-spacing: 0.24em;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
           color: #39b54a;
           margin-bottom: 10px;
@@ -230,10 +240,17 @@ export default function CareersPage() {
 
         .careers-coming-soon p {
           margin: 0;
-          font-family: 'Inter', sans-serif;
-          font-size: 0.98rem;
-          line-height: 1.75;
-          color: rgba(24, 56, 111, 0.66);
+          font-family: 'Inter', sans-serif !important;
+          font-size: 1.01rem !important;
+          line-height: 1.7 !important;
+          color: #596266 !important;
+        }
+
+        @media (max-width: 1100px) {
+          .careers-coming-shell {
+            padding-left: 40px;
+            padding-right: 40px;
+          }
         }
 
         @media (max-width: 920px) {
@@ -249,6 +266,8 @@ export default function CareersPage() {
         @media (max-width: 640px) {
           .careers-coming-shell {
             padding-top: 104px;
+            padding-left: 20px;
+            padding-right: 20px;
           }
 
           .careers-coming-panel {
@@ -267,10 +286,10 @@ export default function CareersPage() {
           <div className="careers-coming-panel">
             <div className="careers-coming-grid">
               <div>
-                <span className="careers-coming-kicker">
+                {/* <span className="careers-coming-kicker">
                   <BriefcaseBusiness size={14} strokeWidth={1.8} />
                   Careers at Lineal Edge
-                </span>
+                </span> */}
 
                 <h1 className="careers-coming-title">We Cultivate Trust Across Generations</h1>
 

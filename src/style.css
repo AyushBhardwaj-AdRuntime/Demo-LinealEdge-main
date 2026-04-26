@@ -583,6 +583,14 @@ body {
 	color: #18386f !important;
 }
 
+.services-tailored-blueprint-head {
+	max-width: 780px !important;
+}
+
+.services-tailored-heading-blueprint {
+	white-space: nowrap;
+}
+
 .services-tailored-shell .services-tailored-card-title,
 .services-tailored-shell .services-tailored-mini-heading {
 	font-family: var(--font-sans) !important;
@@ -622,6 +630,14 @@ body {
 
 	.services-premium-page .inner-page-hero-container.container {
 		padding-inline: 40px !important;
+	}
+
+	.services-tailored-blueprint-head {
+		max-width: 100% !important;
+	}
+
+	.services-tailored-heading-blueprint {
+		white-space: normal;
 	}
 }
 
