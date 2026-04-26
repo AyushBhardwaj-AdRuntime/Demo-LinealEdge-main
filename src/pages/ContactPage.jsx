@@ -96,7 +96,7 @@ export default function ContactPage() {
       <section className="contactv2-split-wrap">
         <div className="contactv2-container contactv2-split">
           <div className="contactv2-text-col">
-            <span className="contactv2-label">Contact Us Form</span>
+            {/* <span className="contactv2-label">Contact Us Form</span> */}
             <h2>We are Always Ready to Work With You</h2>
             <p className="contactv2-text">Ask about general information. Please send us a message.</p>
 

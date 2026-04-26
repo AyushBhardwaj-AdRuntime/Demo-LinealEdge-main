@@ -9,12 +9,12 @@ const ServicesPage1 = () => {
         <div className="services-tailored-section-inner max-w-7xl mx-auto">
 
           {/* Header */}
-          <div className="mb-8 md:mb-10 max-w-lg">
+          <div className="services-tailored-blueprint-head mb-8 md:mb-10 max-w-lg">
             <p className="services-tailored-kicker text-xs font-bold tracking-[0.2em] uppercase mb-4">
               Our Approach
             </p>
 
-            <h2 className="services-tailored-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            <h2 className="services-tailored-heading services-tailored-heading-blueprint text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">
               The Generational Blueprint
             </h2>
 
